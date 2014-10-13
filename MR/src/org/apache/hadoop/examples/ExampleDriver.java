@@ -57,7 +57,7 @@ public class ExampleDriver {
       pgd.addClass("sort", Sort.class, "A map/reduce program that sorts the data written by the random writer.");
 
       pgd.addClass("pi", QuasiMonteCarlo.class, QuasiMonteCarlo.DESCRIPTION);
-      pgd.addClass("bbp", BaileyBorweinPlouffe.class, BaileyBorweinPlouffe.DESCRIPTION);
+    //TOOD ken 2014- error examples .  pgd.addClass("bbp", BaileyBorweinPlouffe.class, BaileyBorweinPlouffe.DESCRIPTION);
       pgd.addClass("distbbp", DistBbp.class, DistBbp.DESCRIPTION);
 
       pgd.addClass("pentomino", DistributedPentomino.class,
