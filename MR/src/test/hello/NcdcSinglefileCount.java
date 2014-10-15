@@ -15,24 +15,17 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
 /**
- * find each year max temp . 
  * @author Ken 
  * @since Oct 13, 2014
  */
-public class NcdcCount
+public class NcdcSinglefileCount
 {
 
 	public static class NcdcMapper extends Mapper<Object, Text, Text, IntWritable>
-	{
-
-//		private final static IntWritable one = new IntWritable(1);
-//		private Text word = new Text();
+	{ 
 
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException
-		{
-//			System.out.print(key+"_");
-//			System.out.print(value+"_");
-//			System.out.println(context);
+		{ 
 			if(value != null)
 			{
 				String s = value.toString();
@@ -49,19 +42,12 @@ public class NcdcCount
 						
 					}
 				}
-			}
-			/*StringTokenizer itr = new StringTokenizer(value.toString());
-			while (itr.hasMoreTokens())
-			{
-				word.set(itr.nextToken());
-				context.write(word, one);
-			}*/
+			} 
 		}
 	}
 
 	public static class NcdcReduce extends Reducer<Text, IntWritable, Text, IntWritable>
-	{
-//		private IntWritable result = new IntWritable();
+	{ 
 
 		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException
 		{
@@ -78,17 +64,9 @@ public class NcdcCount
 
 	public static void main(String[] args) throws Exception
 	{
-		Configuration conf = new Configuration(); 
-		args = new String[] { "/usr/local/hadoop-2.5.0/etc/hadoop", "/home/big/temp" };
-		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
-		if (otherArgs.length < 2)
-		{
-			System.err.println("Usage: wordcount <in> [<in>...] <out>");
-			System.exit(2);
-		}
-		//Job job = new Job(conf, "NCDC COUNT");
+		Configuration conf = new Configuration();  
 		Job job = new Job(conf, "NCDC COUNT");
-		job.setJarByClass(NcdcCount.class);
+		job.setJarByClass(NcdcSinglefileCount.class);
 		job.setMapperClass(NcdcMapper.class);
 		job.setCombinerClass(NcdcReduce.class);
 		job.setReducerClass(NcdcReduce.class);
@@ -97,12 +75,6 @@ public class NcdcCount
 		
 		Path inPath = new Path("/home/big/ncdc/less");
 		Path outPath = new Path("/home/big/ncdc/output");
-		
-//		for (int i = 0; i < otherArgs.length - 1; ++i)
-//		{
-//			FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
-//		}
-
 		FileInputFormat.addInputPath(job, inPath);
 		
 		FileOutputFormat.setOutputPath(job, outPath);
