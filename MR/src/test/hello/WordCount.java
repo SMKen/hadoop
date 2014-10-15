@@ -1,5 +1,6 @@
 package test.hello;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
@@ -57,6 +58,12 @@ public class WordCount
 	public static void main(String[] args) throws Exception
 	{
 		Configuration conf = new Configuration();
+//		File f = new File("/home/big/temp");
+//		if(f.isDirectory())
+//		{
+//			boolean flag = f.delete();
+//			
+//		}
 		args = new String[] { "/usr/local/hadoop-2.5.0/etc/hadoop", "/home/big/temp" };
 		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 		if (otherArgs.length < 2)
